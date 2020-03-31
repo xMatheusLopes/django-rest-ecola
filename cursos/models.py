@@ -16,6 +16,7 @@ class Base(models.Model):
 class Curso(Base):
     titulo = models.CharField(max_length=255)
     url = models.URLField(unique=True)
+    alunos = models.ManyToManyField(User, related_name='usuario', through='AlunoCurso')
 
     class Meta:
         verbose_name = 'Curso'
@@ -44,5 +45,5 @@ class Avaliacao(Base):
 
 
 class AlunoCurso(models.Model):
-    curso = models.ForeignKey(Curso, related_name='curso', on_delete=models.CASCADE)
-    aluno = models.ForeignKey(User, related_name='usuario', on_delete=models.CASCADE)
+    curso = models.ForeignKey(Curso, related_name='curso_aluno', on_delete=models.CASCADE)
+    aluno = models.ForeignKey(User, related_name='aluno_curso', on_delete=models.CASCADE)
