@@ -1,4 +1,7 @@
+from django.contrib.auth.models import User
 from django.db import models
+
+from alunos.models import Aluno
 
 
 class Base(models.Model):
@@ -38,3 +41,8 @@ class Avaliacao(Base):
 
     def __str__(self):
         return f'{self.nome} avaliou o curso {self.curso} com nota {self.avaliacao}'
+
+
+class AlunoCurso(models.Model):
+    curso = models.ForeignKey(Curso, related_name='curso', on_delete=models.CASCADE)
+    aluno = models.ForeignKey(User, related_name='usuario', on_delete=models.CASCADE)
