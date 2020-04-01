@@ -6,11 +6,20 @@ from rest_framework.views import APIView
 from django.core.mail import send_mail
 from django.template import loader
 
+from rest_framework import permissions
+
 from .models import Curso, Avaliacao
 from .serializers import CursoSerializer, AvaliacaoSerializer
+from .permissions import EhSuperUser
 
 
 class CursoViewSet(viewsets.ModelViewSet):
+    # Sobreescrever a classe de permissões
+    # permission_classes = (
+    #     EhSuperUser,
+    #     permissions.DjangoModelPermissions,
+    #     permissions.AllowAny
+    # )
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
 
